@@ -1,6 +1,6 @@
 import { Report } from "@/models/report";
 
-export default function ReportListElement(props: { report: Report, index: number, detailReportFunction: Function }) {
+export default function ReportListElement(props: { report: Report, index: number, detailReportFunction: (path: string) => void }) {
     
     const getDateStringFromDatetime = (datetime: string) => {
         const date = new Date(datetime)

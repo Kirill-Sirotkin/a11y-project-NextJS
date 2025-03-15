@@ -1,7 +1,7 @@
 import ErrorNotFound from "@/components/ErrorNotFound";
 import ProfileWithTabs from "@/components/ProfileWithTabs";
 import { UserJwtPayload } from "@/models/user-jwt-payload";
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
 export default async function Profile() {

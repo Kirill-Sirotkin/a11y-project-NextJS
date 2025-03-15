@@ -2,7 +2,6 @@
 
 import { UserJwtPayload } from "@/models/user-jwt-payload";
 import { TabGroup, TabPanels, TabList, Tab, TabPanel } from "@headlessui/react";
-import ReportTab from "./ReportTab";
 import HistoryTab from "./HistoryTab";
 import Link from "next/link";
 import Cookies from 'js-cookie';

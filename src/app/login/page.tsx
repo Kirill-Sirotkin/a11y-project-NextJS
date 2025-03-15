@@ -1,5 +1,4 @@
 import LogIn from "@/components/LogIn";
-import SignUp from "@/components/SignUp";
 import Link from "next/link";
 
 export default async function Login() {
