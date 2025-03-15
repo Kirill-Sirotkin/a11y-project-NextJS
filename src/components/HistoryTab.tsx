@@ -1,6 +1,5 @@
 "use client"
 
-import { UserJwtPayload } from "@/models/user-jwt-payload";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Report } from "@/models/report";
@@ -12,7 +11,7 @@ enum HistoryState {
     SingleReport
 }
 
-export default function HistoryTab(props: { jwt: UserJwtPayload }) {
+export default function HistoryTab() {
     const [reports, setReports] = useState<Report[]>([])
     const [reportPath, setReportPath] = useState("");
     const [historyState, setHistoryState] = useState<HistoryState>(HistoryState.Fetching)

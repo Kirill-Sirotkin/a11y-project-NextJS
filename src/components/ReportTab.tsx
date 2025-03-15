@@ -1,6 +1,5 @@
 "use client"
 
-import { UserJwtPayload } from "@/models/user-jwt-payload";
 import { FormEvent, useState } from "react";
 import Cookies from "js-cookie";
 
@@ -10,7 +9,7 @@ enum ReportState {
     Displaying
 }
 
-export default function ReportTab(props: { jwt: UserJwtPayload }) {
+export default function ReportTab() {
     const [reportState, setReportState] = useState<ReportState>(ReportState.AwaitingUserInput)
     const [reportPath, setReportPath] = useState("");
 

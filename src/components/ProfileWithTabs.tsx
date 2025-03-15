@@ -46,7 +46,7 @@ export default function ProfileWithTabs(props: { jwt: UserJwtPayload }) {
                     <ReportTab jwt={props.jwt} />
                 </TabPanel> */}
                 <TabPanel className="flex w-full h-full">
-                    <HistoryTab jwt={props.jwt} />
+                    <HistoryTab />
                 </TabPanel>
                 <TabPanel className="
                     flex flex-col gap-4
