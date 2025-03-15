@@ -12,7 +12,7 @@ export default function ReportListElement(props: { report: Report, index: number
             date.getFullYear().toString()
     }
 
-    const getStatusStringWithColor = (status: string) => {
+    const renderStatusStringWithColor = (status: string) => {
         if (status === "PENDING") return (
             <div className="text-amber-300">
                 {status}
@@ -25,20 +25,19 @@ export default function ReportListElement(props: { report: Report, index: number
         )
     }
 
-    return (
-        <li key={props.index} className="
-            flex gap-6 mb-2 justify-between items-center
-            border-1 border-gray-400 rounded-sm
-        ">
-            <div>
-                {getDateStringFromDatetime(props.report.createdAt)}
-            </div>
-            <div>
-                {props.report.domain}
-            </div>
-            <div>
-                {getStatusStringWithColor(props.report.status)}
-            </div>
+    const renderButton = (status: string) => {
+        if (status === "PENDING") return (
+            <button onClick={() => {props.detailReportFunction(props.report.fileName)}} disabled type="button" className="
+                flex justify-center items-center
+                bg-gray-400 text-white
+                rounded-md shadow-md border-1
+                p-2 h-10 w-48 text-sm font-bold
+                cursor-pointer
+            ">
+                View report
+            </button>
+        )
+        if (status === "COMPLETED") return (
             <button onClick={() => {props.detailReportFunction(props.report.fileName)}} type="button" className="
                 flex justify-center items-center
                 bg-blue-500 text-white
@@ -49,6 +48,32 @@ export default function ReportListElement(props: { report: Report, index: number
             ">
                 View report
             </button>
+        )
+    }
+
+    return (
+        <li key={props.index} className="
+            flex gap-6 mb-2 justify-between items-center
+            border-1 p-2 border-gray-400 rounded-sm shadow-md
+        ">
+            <div className="
+                flex justify-start items-center gap-2
+            ">
+                <div className="w-52">
+                    {getDateStringFromDatetime(props.report.createdAt)}
+                </div>
+                <div className="overflow-y-auto w-128 p-0.5 h-8">
+                    {props.report.domain}
+                </div>
+            </div>
+            <div className="
+                flex justify-center items-center gap-6
+            ">
+                <div>
+                    {renderStatusStringWithColor(props.report.status)}
+                </div>
+                {renderButton(props.report.status)}
+            </div>
         </li>
     );
 }

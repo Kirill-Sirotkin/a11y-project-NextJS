@@ -17,6 +17,11 @@ export default async function Home() {
         ">
           Check your website for accessibility issues!
         </div>
+        <div className="
+          text-2xl font-normal text-gray-500
+        ">
+          This is an alpha version of the website.
+        </div>
       </div>
     </main>
   );
