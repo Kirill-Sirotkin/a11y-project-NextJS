@@ -21,7 +21,7 @@ export default function HistoryTab() {
         console.log("fetching history...")
 
         // fetch('https://localhost:3001/report', {
-        fetch('https://68.183.13.198:3001/report', {
+        fetch('https://a11y-project.duckdns.org:3001/report', {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export default function HistoryTab() {
         }
         setIsProcessingGenerate(true);
         // fetch('https://localhost:3001/report', {
-        fetch('https://68.183.13.198:3001/report', {
+        fetch('https://a11y-project.duckdns.org:3001/report', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
@@ -206,10 +206,10 @@ export default function HistoryTab() {
                         ">
                             Back to reports
                         </button>
-                        <object data={"https://68.183.13.198:3001/" + reportPath} type="application/pdf" width="100%" height="100%">
-                            <iframe src={"https://68.183.13.198:3001/" + reportPath} width="100%" height="100%">
+                        <object data={"https://a11y-project.duckdns.org:3001/" + reportPath} type="application/pdf" width="100%" height="100%">
+                            <iframe src={"https://a11y-project.duckdns.org:3001/" + reportPath} width="100%" height="100%">
                                 This browser does not support PDFs. Please download the PDF to view it: 
-                                <a href={"https://68.183.13.198:3001/" + reportPath}>Download PDF</a>
+                                <a href={"https://a11y-project.duckdns.org:3001/" + reportPath}>Download PDF</a>
                             </iframe>
                         </object>            
                     </div>)
