@@ -16,7 +16,7 @@ export default function LogIn() {
         const formData = new FormData(e.currentTarget);
 
         try {
-            const response = await fetch('http://localhost:3001/auth-alpha/login', {
+            const response = await fetch('http://68.183.13.198:8080/auth-alpha/login', {
               method: 'POST',
               headers: {
                 "Content-Type": "application/json",

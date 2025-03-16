@@ -11,7 +11,7 @@ export default async function Auth() {
         <Link href="/" className="
           pl-4 pt-4 underline font-bold text-xl cursor-pointer
         ">
-          back to home page
+          Back to home page
         </Link>
         <main className="
           flex flex-1 justify-center items-center gap-16

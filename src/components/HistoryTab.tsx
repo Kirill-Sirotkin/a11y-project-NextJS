@@ -20,7 +20,8 @@ export default function HistoryTab() {
     const fetchReports = () => {
         console.log("fetching history...")
 
-        fetch('http://localhost:3001/report', {
+        // fetch('http://localhost:3001/report', {
+        fetch('http://68.183.13.198:8080/report', {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -59,7 +60,8 @@ export default function HistoryTab() {
             return
         }
         setIsProcessingGenerate(true);
-        fetch('http://localhost:3001/report', {
+        // fetch('http://localhost:3001/report', {
+        fetch('http://68.183.13.198:8080/report', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
@@ -73,7 +75,7 @@ export default function HistoryTab() {
                 // Status is not 200 - add error handling
                 console.log("[ERROR] error with report generation")
                 alert("Report generation failed.")
-                setHistoryState(HistoryState.AllReports)
+                setIsProcessingGenerate(false);
                 return
             }
             res.json()
@@ -101,7 +103,7 @@ export default function HistoryTab() {
 
         setTimeout(() => {
             fetchReports()
-        }, 500);
+        }, 1000);
     }
 
     const showDetailedReport = (path: string) => {
@@ -204,10 +206,10 @@ export default function HistoryTab() {
                         ">
                             Back to reports
                         </button>
-                        <object data={"http://localhost:3001/" + reportPath} type="application/pdf" width="100%" height="100%">
-                            <iframe src={"http://localhost:3001/" + reportPath} width="100%" height="100%">
+                        <object data={"http://68.183.13.198:8080/" + reportPath} type="application/pdf" width="100%" height="100%">
+                            <iframe src={"http://68.183.13.198:8080/" + reportPath} width="100%" height="100%">
                                 This browser does not support PDFs. Please download the PDF to view it: 
-                                <a href={"http://localhost:3001/" + reportPath}>Download PDF</a>
+                                <a href={"http://68.183.13.198:8080/" + reportPath}>Download PDF</a>
                             </iframe>
                         </object>            
                     </div>)

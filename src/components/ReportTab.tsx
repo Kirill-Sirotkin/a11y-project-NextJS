@@ -19,7 +19,7 @@ export default function ReportTab() {
         setReportState(ReportState.Generating)
         const formData = new FormData(e.currentTarget);
 
-        const response = await fetch('http://localhost:3001/report', {
+        const response = await fetch('http://68.183.13.198:8080/report', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
@@ -104,10 +104,10 @@ export default function ReportTab() {
                         ">
                             NEW REPORT
                         </button>
-                        <object data={"http://localhost:3001/" + reportPath} type="application/pdf" width="100%" height="100%">
-                            <iframe src={"http://localhost:3001/" + reportPath} width="100%" height="100%">
+                        <object data={"http://68.183.13.198:8080/" + reportPath} type="application/pdf" width="100%" height="100%">
+                            <iframe src={"http://68.183.13.198:8080/" + reportPath} width="100%" height="100%">
                                 This browser does not support PDFs. Please download the PDF to view it: 
-                                <a href={"http://localhost:3001/" + reportPath}>Download PDF</a>
+                                <a href={"http://68.183.13.198:8080/" + reportPath}>Download PDF</a>
                             </iframe>
                         </object>            
                     </div>)
