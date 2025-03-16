@@ -16,7 +16,7 @@ export default function LogIn() {
         const formData = new FormData(e.currentTarget);
 
         try {
-            const response = await fetch('https://68.183.13.198:8080/auth-alpha/login', {
+            const response = await fetch('https://a11y-project.duckdns.org:3001/auth-alpha/login', {
               method: 'POST',
               headers: {
                 "Content-Type": "application/json",

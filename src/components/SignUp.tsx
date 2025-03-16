@@ -21,8 +21,8 @@ export default function SignUp() {
         }
 
         try {
-            // const response = await fetch('http://localhost:3001/auth-alpha/register', {
-            const response = await fetch('https://68.183.13.198:8080/auth-alpha/register', {
+            // const response = await fetch('https://localhost:3001/auth-alpha/register', {
+            const response = await fetch('https://68.183.13.198:3001/auth-alpha/register', {
               method: 'POST',
               headers: {
                 "Content-Type": "application/json",
