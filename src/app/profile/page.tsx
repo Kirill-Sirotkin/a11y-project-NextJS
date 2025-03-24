@@ -12,7 +12,12 @@ export default async function Profile() {
         <ErrorNotFound />
     );
   }
-  const jwt = jwtDecode<UserJwtPayload>(jwtCookie.value)
+  let jwt: UserJwtPayload | null = null
+  try {
+    jwt = jwtDecode<UserJwtPayload>(jwtCookie.value)
+  } catch (error) {
+    console.error(error)
+  }
   
   return (
     <main className="

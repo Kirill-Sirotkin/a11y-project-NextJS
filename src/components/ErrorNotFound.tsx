@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default async function ErrorNotFound() {
+export default function ErrorNotFound() {
     return (
         <main className="
             flex flex-col justify-center items-center

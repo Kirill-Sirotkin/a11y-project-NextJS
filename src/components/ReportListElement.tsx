@@ -23,6 +23,11 @@ export default function ReportListElement(props: { report: Report, index: number
                 {status}
             </div>
         )
+        if (status === "FAILED") return (
+            <div className="text-red-600">
+                {status}
+            </div>
+        )
     }
 
     const renderButton = (status: string) => {

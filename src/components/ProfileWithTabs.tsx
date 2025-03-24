@@ -5,8 +5,17 @@ import { TabGroup, TabPanels, TabList, Tab, TabPanel } from "@headlessui/react";
 import HistoryTab from "./HistoryTab";
 import Link from "next/link";
 import Cookies from 'js-cookie';
+import ErrorNotFound from "./ErrorNotFound";
 
-export default function ProfileWithTabs(props: { jwt: UserJwtPayload }) {
+export default function ProfileWithTabs(props: { jwt: UserJwtPayload | null }) {
+    if (!props.jwt) {
+        Cookies.set("jwt", "");
+
+        return (
+            <ErrorNotFound />
+        );
+    }
+
     return (
         <div className="h-full flex flex-col">
             <div className="

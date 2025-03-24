@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Report } from "@/models/report";
 import ReportListElement from "./ReportListElement";
+import toast from "react-hot-toast";
 
 enum HistoryState {
     Fetching,
@@ -20,20 +21,22 @@ export default function HistoryTab() {
     const fetchReports = () => {
         console.log("fetching history...")
 
-        // fetch('https://localhost:3001/report', {
-        fetch('https://a11y-project.duckdns.org:3001/report', {
+        setHistoryState(HistoryState.Fetching)
+        fetch(process.env.NEXT_PUBLIC_SERVER_URL + 'report', {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + Cookies.get("jwt")
             },
         })
-        .then((res) => {
-            if (res.status.toString()[0] !== "2") {
+        .then(async (res) => {
+            if (!res.ok) {
                 // Status is not 200 - add error handling
                 console.log("[ERROR] error with signup")
-                alert("Invalid session token. Please log out and log in again.")
+                // alert("Invalid session token. Please log out and log in again.")
                 setHistoryState(HistoryState.AllReports)
+                const result = await res.json()
+                toast.error("Invalid session token. Please log out and log in again. " + result.message)
                 return
             }
             res.json()
@@ -60,8 +63,7 @@ export default function HistoryTab() {
             return
         }
         setIsProcessingGenerate(true);
-        // fetch('https://localhost:3001/report', {
-        fetch('https://a11y-project.duckdns.org:3001/report', {
+        fetch(process.env.NEXT_PUBLIC_SERVER_URL + 'report', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
@@ -70,11 +72,13 @@ export default function HistoryTab() {
             body: JSON.stringify({ 
               domain: formData.get("domain")
             }),
-        }).then((res) => {
-            if (res.status.toString()[0] !== "2") {
+        }).then(async (res) => {
+            if (!res.ok) {
                 // Status is not 200 - add error handling
                 console.log("[ERROR] error with report generation")
-                alert("Report generation failed.")
+                // alert("Report generation failed.")
+                const result = await res.json()
+                toast.error("Report generation failed. " + result.message, {duration: 7000})
                 setIsProcessingGenerate(false);
                 return
             }
@@ -118,14 +122,36 @@ export default function HistoryTab() {
     const renderReports = () => {
         if (!reports || reports.length === 0) {
             return (
-                <div className="font-bold pt-4">
+                <div className="flex items-center gap-2 font-bold pt-4">
+                <button onClick={fetchReports} className="
+                    flex justify-center items-center
+                    bg-blue-500 text-white
+                    hover:bg-blue-600
+                    rounded-md shadow-md border-1
+                    w-7 h-7 p-1 text-sm font-bold
+                    cursor-pointer
+                ">
+                    <img src="/images/refresh.svg" alt="refresh reports button" className=""></img>
+                </button>
                     No previous reports available.
                 </div>
             )
         } else {
             return (
                 <ul className="pt-4">
-                    <div className="font-bold pb-2">Your reports:</div>
+                    <div className="flex items-center gap-2 font-bold pb-2">
+                        <button onClick={fetchReports} className="
+                            flex justify-center items-center
+                            bg-blue-500 text-white
+                            hover:bg-blue-600
+                            rounded-md shadow-md border-1
+                            w-7 h-7 p-1 text-sm font-bold
+                            cursor-pointer
+                        ">
+                            <img src="/images/refresh.svg" alt="refresh reports button" className=""></img>
+                        </button>
+                        Your reports:
+                    </div>
                     {reports.map((report, i) => {
                         return (
                             <ReportListElement key={i} report={report} index={i} detailReportFunction={showDetailedReport} />
@@ -184,7 +210,7 @@ export default function HistoryTab() {
                             ">
                                 Please note that report generation may take a little while, depending on the complexity of the website.
                                 <br></br>
-                                If the status of a new report does not change for longer than 30 seconds, please refresh the page.
+                                If the status of a new report does not change for longer than 30 seconds, please refresh the reports.
                             </div>
                         </form>
                         {renderReports()}
@@ -206,10 +232,10 @@ export default function HistoryTab() {
                         ">
                             Back to reports
                         </button>
-                        <object data={"https://a11y-project.duckdns.org:3001/" + reportPath} type="application/pdf" width="100%" height="100%">
-                            <iframe src={"https://a11y-project.duckdns.org:3001/" + reportPath} width="100%" height="100%">
+                        <object data={process.env.NEXT_PUBLIC_SERVER_URL + reportPath} type="application/pdf" width="100%" height="100%">
+                            <iframe src={process.env.NEXT_PUBLIC_SERVER_URL + reportPath} width="100%" height="100%">
                                 This browser does not support PDFs. Please download the PDF to view it: 
-                                <a href={"https://a11y-project.duckdns.org:3001/" + reportPath}>Download PDF</a>
+                                <a href={process.env.NEXT_PUBLIC_SERVER_URL + reportPath}>Download PDF</a>
                             </iframe>
                         </object>            
                     </div>)

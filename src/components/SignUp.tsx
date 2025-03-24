@@ -3,11 +3,18 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from 'js-cookie';
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SignUp() {
     const [isProcessingFetch, setIsProcessingFetch] = useState(false);
     const router = useRouter()
+
+    useEffect(() => {
+        if (Cookies.get("jwt")) {
+            router.push('/profile')
+        }
+    }, [])
 
     const submit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -21,8 +28,7 @@ export default function SignUp() {
         }
 
         try {
-            // const response = await fetch('https://localhost:3001/auth-alpha/register', {
-            const response = await fetch('https://a11y-project.duckdns.org:3001/auth-alpha/register', {
+            const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + 'auth-alpha/register', {
               method: 'POST',
               headers: {
                 "Content-Type": "application/json",
@@ -35,9 +41,11 @@ export default function SignUp() {
               }),
             })
     
-            if (response.status.toString()[0] !== "2") {
+            if (!response.ok) {
                 // Status is not 200 - add error handling
                 console.log("[ERROR] error with signup")
+                const result = await response.json()
+                toast.error("Error with sign up. " + result.message)
                 return
             }
     

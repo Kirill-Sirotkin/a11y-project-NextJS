@@ -2,12 +2,19 @@
 
 import { useRouter } from "next/navigation";
 import Cookies from 'js-cookie';
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function LogIn() {
     const [isProcessingFetch, setIsProcessingFetch] = useState(false);
     const router = useRouter()
+
+    useEffect(() => {
+        if (Cookies.get("jwt")) {
+            router.push('/profile')
+        }
+    }, [])
 
     const submit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -16,7 +23,8 @@ export default function LogIn() {
         const formData = new FormData(e.currentTarget);
 
         try {
-            const response = await fetch('https://a11y-project.duckdns.org:3001/auth-alpha/login', {
+            console.log(process.env.NEXT_PUBLIC_SERVER_URL)
+            const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + 'auth-alpha/login', {
               method: 'POST',
               headers: {
                 "Content-Type": "application/json",
@@ -27,9 +35,11 @@ export default function LogIn() {
               }),
             })
     
-            if (response.status.toString()[0] !== "2") {
+            if (!response.ok) {
                 // Status is not 200 - add error handling
                 console.log("[ERROR] error with login")
+                const result = await response.json()
+                toast.error("Wrong email or password. " + result.message)
                 return
             }
     
