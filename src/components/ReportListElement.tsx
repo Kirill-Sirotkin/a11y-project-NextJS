@@ -4,12 +4,19 @@ export default function ReportListElement(props: { report: Report, index: number
     
     const getDateStringFromDatetime = (datetime: string) => {
         const date = new Date(datetime)
-        return "" + date.getHours().toString() + ":" +
-            date.getMinutes().toString() + ":" +
-            date.getSeconds().toString() + " " +
-            date.getDate().toString() + "." +
-            (date.getMonth() + 1).toString() + "." +
+        return "" + getTimeWithZeroIfSingleDigit(date.getHours().toString()) + ":" +
+            getTimeWithZeroIfSingleDigit(date.getMinutes().toString()) + ":" +
+            getTimeWithZeroIfSingleDigit(date.getSeconds().toString()) + " " +
+            getTimeWithZeroIfSingleDigit(date.getDate().toString()) + "." +
+            getTimeWithZeroIfSingleDigit((date.getMonth() + 1).toString()) + "." +
             date.getFullYear().toString()
+    }
+
+    const getTimeWithZeroIfSingleDigit = (time: string): string => {
+        if (time.length === 1) {
+            return `0${time}`
+        }
+        return time
     }
 
     const renderStatusStringWithColor = (status: string) => {

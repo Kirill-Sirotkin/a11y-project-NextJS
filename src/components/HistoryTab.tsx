@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { Report } from "@/models/report";
 import ReportListElement from "./ReportListElement";
 import toast from "react-hot-toast";
+import InstructionsDialog from "./InstructionsDialog";
 
 enum HistoryState {
     Fetching,
@@ -17,6 +18,7 @@ export default function HistoryTab() {
     const [reportPath, setReportPath] = useState("");
     const [historyState, setHistoryState] = useState<HistoryState>(HistoryState.Fetching)
     const [isProcessingGenerate, setIsProcessingGenerate] = useState(false)
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
 
     const fetchReports = () => {
         console.log("fetching history...")
@@ -192,6 +194,7 @@ export default function HistoryTab() {
             case HistoryState.AllReports:
                 return (
                     <div>
+                        <InstructionsDialog isDialogOpen={isDialogOpen} closeDialog={() => {setIsDialogOpen(false)}} />
                         <form onSubmit={submit} className="
                             flex flex-col gap-4
                             w-full h-full pb-4 border-b-2 border-black
@@ -202,15 +205,24 @@ export default function HistoryTab() {
                                 ">
                                     Enter full URL of the page you want to analyze:
                                 </label>
-                                <input id="reportDomain" type="text" name="domain" placeholder="https://example.com" className="border px-1 py-0.5 w-112" />
+                                <div className="flex gap-2 items-center">
+                                    <input id="reportDomain" type="text" name="domain" placeholder="https://example.com" className="border px-1 py-0.5 w-112" />
+                                    <button type="button" onClick={() => {setIsDialogOpen(true)}} className="
+                                        ml-2 w-10 h-10 p-1 cursor-pointer
+                                        border-1 border-gray-300 rounded-md shadow-md   
+                                    ">
+                                        <img 
+                                            src="/images/question_mark.svg" 
+                                            alt="report page usage instrutions button" 
+                                        />
+                                    </button>
+                                </div>
                             </div>
                             {generateButton}
                             <div className="
                             text-gray-500 text-sm
                             ">
-                                Please note that report generation may take a little while, depending on the complexity of the website.
-                                <br></br>
-                                If the status of a new report does not change for longer than 30 seconds, please refresh the reports.
+                                Please note that report generation may take up to several minutes, depending on the complexity of the website.
                             </div>
                         </form>
                         {renderReports()}
@@ -220,7 +232,7 @@ export default function HistoryTab() {
                 return (
                     <div className="
                         flex flex-col w-full h-full
-                        gap-4 justify-center
+                        gap-4
                     ">
                         <button onClick={backToAllReports} type="button" className="
                             flex justify-center items-center
@@ -232,7 +244,7 @@ export default function HistoryTab() {
                         ">
                             Back to reports
                         </button>
-                        <object data={process.env.NEXT_PUBLIC_SERVER_URL + reportPath} type="application/pdf" width="100%" height="100%">
+                        <object className="min-h-130" data={process.env.NEXT_PUBLIC_SERVER_URL + reportPath} type="application/pdf" width="100%" height="100%">
                             <iframe src={process.env.NEXT_PUBLIC_SERVER_URL + reportPath} width="100%" height="100%">
                                 This browser does not support PDFs. Please download the PDF to view it: 
                                 <a href={process.env.NEXT_PUBLIC_SERVER_URL + reportPath}>Download PDF</a>

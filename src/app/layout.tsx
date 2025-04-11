@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./../styles/globals.css";
 import { Toaster } from "react-hot-toast";
+import CookieDialog from "@/components/CookieDialog";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       >
         {children}
         <Toaster position="bottom-right" toastOptions={{duration: 5000}} />
+        <CookieDialog />
       </body>
     </html>
   );

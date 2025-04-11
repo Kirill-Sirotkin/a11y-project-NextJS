@@ -65,7 +65,12 @@ export default function ProfileWithTabs(props: { jwt: UserJwtPayload | null }) {
                     <div>Role: {props.jwt.role}</div>
                     <div>Subscription: {props.jwt.subscription}</div>
                     <div className="
-                        mt-8 font-bold
+                        mt-4 font-bold
+                    ">
+                        If you have any issues, please contact out tech support: accessibilitysupp@gmail.com
+                    </div>
+                    <div className="
+                        mt-12 font-bold
                     ">
                         Settings page functionality is not yet available in the alpha version.
                     </div>

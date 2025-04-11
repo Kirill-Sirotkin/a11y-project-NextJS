@@ -1,3 +1,4 @@
+import FeedbackDialog from "@/components/FeedbackDialog";
 import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
@@ -17,9 +18,10 @@ export default function ProfileLayout({
 }>) {
   return (
       <div
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
         {children}
+        <FeedbackDialog />
       </div>
   );
 }

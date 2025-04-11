@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 
 export default function SignUp() {
     const [isProcessingFetch, setIsProcessingFetch] = useState(false);
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
     const router = useRouter()
 
     useEffect(() => {
@@ -63,32 +64,53 @@ export default function SignUp() {
         }
     }
 
-    const buttonContent = 
-        isProcessingFetch ? 
-        <button type="submit" disabled className="
-            flex justify-center items-center
-            bg-gray-400 text-white
-            rounded-md shadow-md border-1
-            p-2 w-3xs h-10
-        ">
-            <img src="/images/spinner_dark.svg" alt="processing fetch spinner" className="w-8 h-8" />
-        </button>
+    const termsWarningMessage = 
+        isTermsAccepted ?
+        null
         :
-        <button type="submit" className="
-            flex justify-center items-center
-            bg-blue-500 text-white
-            hover:bg-blue-600
-            rounded-md shadow-md border-1
-            p-2 w-3xs h-10
-            cursor-pointer
-        ">
-            Sign Up
-        </button>
+        <div className="text-red-500 text-center p-2">
+            Please read and accept the <Link href={"/terms"} target="_blank" className="text-blue-500 cursor-pointer underline">terms of service</Link> before signing up
+        </div>
+
+    const renderButtonContent = () => {
+        if (isProcessingFetch) return (
+            <button type="submit" disabled className="
+                flex justify-center items-center
+                bg-gray-400 text-white
+                rounded-md shadow-md border-1
+                p-2 w-3xs h-10
+            ">
+                <img src="/images/spinner_dark.svg" alt="processing fetch spinner" className="w-8 h-8" />
+            </button>
+        )
+        if (!isTermsAccepted) return (
+            <button type="submit" disabled className="
+                flex justify-center items-center
+                bg-gray-400 text-white
+                rounded-md shadow-md border-1
+                p-2 w-3xs h-10
+            ">
+                Sign Up
+            </button>
+        )
+        return (
+            <button type="submit" className="
+                flex justify-center items-center
+                bg-blue-500 text-white
+                hover:bg-blue-600
+                rounded-md shadow-md border-1
+                p-2 w-3xs h-10
+                cursor-pointer
+            ">
+                Sign Up
+            </button>
+        )
+    }
     
     return (
         <div className="
             flex flex-col
-            h-120 w-sm
+            h-150 w-sm
             rounded-lg p-2 shadow-md border-2
         ">
             <div className="text-2xl font-bold">
@@ -111,9 +133,13 @@ export default function SignUp() {
                     <input id="passwordRepeatSignUp" type="password" name="passwordRepeat" placeholder="********" className="border px-1 py-0.5" required />
                     <label htmlFor="alphaKeySignUp">Alpha key:</label>
                     <input id="alphaKeySignUp" type="text" name="alphaKey" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" className="border px-1 py-0.5" required />
+                    <div className="flex gap-2 px-2">
+                        <input id="termsCheckboxSignUp" type="checkbox" name="termsCheckbox" checked={isTermsAccepted} onChange={() => setIsTermsAccepted(!isTermsAccepted)} required />
+                        <label htmlFor="termsCheckboxSignUp">I accept the <Link href={"/terms"} target="_blank" className="text-blue-500 cursor-pointer underline">terms of service</Link></label>
+                    </div>
                 </div>
                 <div className="
-                    flex flex-col gap-4
+                    flex flex-col gap-1
                     justify-center items-center
                 ">
                     <Link href={`/login`} className="
@@ -123,7 +149,8 @@ export default function SignUp() {
                     ">
                         Already have an account? Log in
                     </Link>
-                    {buttonContent}
+                    {termsWarningMessage}
+                    {renderButtonContent()}
                 </div>
             </form>
         </div>
