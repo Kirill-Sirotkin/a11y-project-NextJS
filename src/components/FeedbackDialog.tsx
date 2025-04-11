@@ -118,7 +118,7 @@ export default function FeedbackDialog() {
                             </p>
                             <ul className="mt-2 text-sm/6 text-white list-disc list-inside">
                                 <li>
-                                    The website's functionality and UI
+                                    Functionality and UI of the website
                                 </li>
                                 <li>
                                     The quality and information of the reports

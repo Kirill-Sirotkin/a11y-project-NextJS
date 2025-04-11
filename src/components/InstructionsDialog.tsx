@@ -26,7 +26,7 @@ export default function InstructionsDialog(props: { isDialogOpen: boolean, close
                         1. New report
                     </p>
                     <p className="mt-2 pl-4 text-sm/6 text-white">
-                        To create a report, enter the full URL of the web page you want to analyze and click the "Generate report" button.
+                        {'To create a report, enter the full URL of the web page you want to analyze and click the \"Generate report\" button.'}
                     </p>
                     <p className="mt-2 text-sm/6 font-bold text-white">
                         Please note:
@@ -41,7 +41,7 @@ export default function InstructionsDialog(props: { isDialogOpen: boolean, close
                         2. Report history
                     </p>
                     <p className="mt-2 pl-4 text-sm/6 text-white">
-                        The report history is listed under "Your reports". Click "View report" to see a PDF file with the detailed information. When viewing the report PDF, you can also download it.
+                        {'The report history is listed under \"Your reports\". Click \"View report\" to see a PDF file with the detailed information. When viewing the report PDF, you can also download it.'}
                     </p>
                     <div className="mt-4">
                         <Button
